@@ -1,5 +1,6 @@
 from cliente.log import Login
 from cliente.reg import Register
+from cliente.res import reservar
 from os import system
 
 
@@ -94,6 +95,7 @@ def main():
 
             #VISTA CLIENTE
 
+            print(correo)
             print("Que desea hacer?")
             print("1. Reservar mesa")
             print("2. Historial de reservas")
@@ -104,8 +106,10 @@ def main():
 
             try:
                 opcion = int(input("Ingrese una opcion: ").strip())
+
                 if opcion == 1:
-                    #Funcion Reservar mesa
+                    print("reserva de mesa")
+                    reservar()
                     system('clear')
                 elif opcion == 2:
                     #Funcion Historial de reservas
