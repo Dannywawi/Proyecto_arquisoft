@@ -1,6 +1,7 @@
 from cliente.log import Login
 from cliente.reg import Register
 from cliente.res import reservar
+from cliente.writecom import WriteCom ##Escribir cometario
 from os import system
 
 
@@ -119,6 +120,7 @@ def main():
                     system('clear')
                 elif opcion == 4:
                     #Funcion Escribir comentarios
+                    WriteCom(isAdmin, correo)
                     system('clear')
                 elif opcion == 5:
                     #Funcion Revisar menu
