@@ -2,6 +2,7 @@ from cliente.log import Login
 from cliente.reg import Register
 from cliente.res import reservar
 from cliente.writecom import WriteCom ##Escribir cometario
+from cliente.his import mostrarhistorial
 from os import system
 
 
@@ -113,7 +114,8 @@ def main():
                     reservar(correo)
                     system('clear')
                 elif opcion == 2:
-                    #Funcion Historial de reservas
+                    print("Historial")
+                    mostrarhistorial(correo)
                     system('clear')
                 elif opcion == 3:
                     #Funcion Cancelar Reservas

@@ -2,8 +2,6 @@ import socket, pickle
 import sys, json
 import os
 
-orden = 0
-
 def restaurantes():
     sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     sock.connect((socket.gethostname(),6000))
