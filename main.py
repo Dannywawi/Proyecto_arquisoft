@@ -110,7 +110,7 @@ def main():
 
                 if opcion == 1:
                     print("reserva de mesa")
-                    reservar()
+                    reservar(correo)
                     system('clear')
                 elif opcion == 2:
                     #Funcion Historial de reservas
