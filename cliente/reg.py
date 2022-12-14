@@ -9,14 +9,47 @@ def Register():
     server_address = ('127.0.0.1', 5002)
     print('connecting to {} port {}'.format(*server_address))
     sock.connect(server_address)
-    print("Ingrese su nombre")
+    
+    nombre=""
+    celular=0
+    correo=""
+    password=""
+    
+    print("Ingrese su nombre (maximo 20 caracteres)")
     nombre=input()
-    print("Ingrese su celular")
-    celular=input()
-    print("Ingrese su correo electronico")
+    while (len(nombre) < 1) or (len(nombre) > 20):
+        print("Ingrese su nombre")
+        nombre=input()
+    
+    while True:
+        print("Ingrese su celular (maximo 15 números)")
+        try:
+            celular=int(input())
+            while (celular < 1) or (celular > 999999999999999):
+                print("Ingrese su celular (maximo 15 números)")
+                try:
+                    celular=int(input())
+                    break
+                except ValueError:
+                    print("Error en el valor ingresado")
+                    continue
+            break
+        except ValueError:
+            print("Error en el valor ingresado")
+            continue
+    
+    print("Ingrese su correo electronico (maximo 25 caracteres)")
     correo=input()
-    print("Ingrese su contraseña")
+    while (len(correo) < 1) or (len(correo) > 25):
+        print("Ingrese su correo electronico (maximo 25 caracteres)")
+        correo=input()
+    
+    print("Ingrese su contraseña (maximo 20 caracteres)")
     password=input()
+    while (len(password) < 1) or (len(password) > 20):
+        print("Ingrese su contraseña (maximo 20 caracteres)")
+        password=input()
+    
     post = str({'nombre': nombre, 'celular':celular, 'clave': password, 'correo':correo}).replace("'",'"').encode()  
     try: 
         sock.sendall(post)

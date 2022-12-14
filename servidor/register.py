@@ -31,9 +31,16 @@ while True:
             print('received {!r}',data)
             safepass = hashlib.sha256(data["clave"].encode('utf-8')).hexdigest()
             post={"tipo_cliente":2,"nombre":data["nombre"],"celular":data["celular"],"clave":safepass,"correo":data["correo"]}
-            collection.insert_one(post)            
-            print('ESTES ES X: ',post)
             messs = '2'
+            
+            # Comprobar si existe correo
+            x = collection.find_one({"correo": data["correo"]})
+            if x == None:
+                collection.insert_one(post)            
+                print('Usuario creado: ',post)
+            else:
+                print('Usuario ya existe.')
+                
             if post != None:
                 print('sending data back to the client')
                 connection.sendall(messs.encode())

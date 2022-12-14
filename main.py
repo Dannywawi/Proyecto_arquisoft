@@ -9,6 +9,9 @@ from cliente.cliAsignarMenu import asignarMenu
 from cliente.cliVerComentarios import verComentarios
 from cliente.cliValidarReserva import validarReserva
 from cliente.cliConfirmarReserva import confirmarReserva
+from cliente.res import reservar
+from cliente.writecom import WriteCom ##Escribir cometario
+from cliente.his import mostrarhistorial
 from os import system
 
 
@@ -131,6 +134,7 @@ def main():
 
             #VISTA CLIENTE
 
+            print(correo)
             print("Que desea hacer?")
             print("1. Reservar mesa")
             print("2. Historial de reservas")
@@ -141,17 +145,21 @@ def main():
 
             try:
                 opcion = int(input("Ingrese una opcion: ").strip())
+
                 if opcion == 1:
-                    #Funcion Reservar mesa
+                    print("reserva de mesa")
+                    reservar(correo)
                     system('clear')
                 elif opcion == 2:
-                    #Funcion Historial de reservas
+                    print("Historial")
+                    mostrarhistorial(correo)
                     system('clear')
                 elif opcion == 3:
                     #Funcion Cancelar Reservas
                     system('clear')
                 elif opcion == 4:
                     #Funcion Escribir comentarios
+                    WriteCom(isAdmin, correo)
                     system('clear')
                 elif opcion == 5:
                     #Funcion Revisar menu
