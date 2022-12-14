@@ -10,7 +10,8 @@ from cliente.cliVerComentarios import verComentarios
 from cliente.cliValidarReserva import validarReserva
 from cliente.cliConfirmarReserva import confirmarReserva
 from cliente.res import reservar
-from cliente.writecom import WriteCom ##Escribir cometario
+from cliente.writecom import WriteCom
+from cliente.cliVerMenu import VerMenu
 from cliente.his import mostrarhistorial
 from os import system
 
@@ -163,6 +164,7 @@ def main():
                     system('clear')
                 elif opcion == 5:
                     #Funcion Revisar menu
+                    VerMenu()
                     system('clear')
                 elif opcion == 6:
                     print("Saliendo")
