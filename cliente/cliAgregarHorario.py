@@ -1,33 +1,36 @@
 import socket
 import sys, json
+import pickle
 
 
-def Register():
+def agregarHorario():
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect the socket to the port where the server is listening
-    server_address = ('127.0.0.1', 5002)
+    server_address = ('127.0.0.1', 5003)
     print('connecting to {} port {}'.format(*server_address))
     sock.connect(server_address)
-    print("Ingrese su nombre")
-    nombre=input()
-    print("Ingrese su celular")
-    celular=input()
-    print("Ingrese su correo electronico")
-    correo=input()
-    print("Ingrese su contraseña")
-    password=input()
-    post = str({'nombre': nombre, 'celular':celular, 'clave': password, 'correo':correo}).replace("'",'"').encode()  
+
+    #Mesas son para 6 personas max.
+    #Bloque1: 9:00 - 14:00
+    #Bloque2: 14:00 - 20:00
+    print("Ingrese el nombre de la sucursal")
+    sucursal=input()
+    print("Ingrese fecha")
+    fecha=input()
+
+
+    post = str({'sucursal': sucursal,'fecha': fecha}).replace("'",'"').encode()  
     try: 
         sock.sendall(post)
         amount_received = 0
         amount_expected = len(post)
 
         while amount_received < amount_expected:
-            data = sock.recv(4096)
+            data = pickle.loads(sock.recv(4096))
             amount_received += len(data)
-            print('received {!r}'.format(data))
-            return data.decode("utf-8") 
+            print(data)
+            return data
     finally:
         print('closing socket')
         sock.close()

@@ -2,6 +2,7 @@ import socket, sys, json
 import os
 from bdd import connectDb
 import hashlib
+import pickle 
 
 
 collection=connectDb()["usuario"]
@@ -9,7 +10,7 @@ collection=connectDb()["usuario"]
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the port
-server_address = ('localhost', 5002)
+server_address = ('127.0.0.1', 5002)
 print('starting up on {} port {}'.format(*server_address))
 sock.bind(server_address)
 

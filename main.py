@@ -1,9 +1,18 @@
 from cliente.log import Login
 from cliente.reg import Register
+from cliente.cliAgregarSucursal import agregarSucursal
+from cliente.cliEliminarSucursal import eliminarSucursal
+from cliente.cliAgregarHorario import agregarHorario
+from cliente.cliAsignarMesa import asignarMesa
+from cliente.cliLiberarMesa import liberarMesa
+from cliente.cliAsignarMenu import asignarMenu
+from cliente.cliVerComentarios import verComentarios
+from cliente.cliValidarReserva import validarReserva
+from cliente.cliConfirmarReserva import confirmarReserva
 from os import system
 
 
-isAdmin = 0
+isAdmin = 1
 correo = ""
 
 def main():
@@ -19,6 +28,7 @@ def main():
             print("1. Crear una nueva cuenta")
             print("2. Ingresar a una cuenta existente")
             print("3. Salir")
+
             try:
                 opcion = int(input("Ingrese una opcion: ").strip())
                 if opcion == 1:
@@ -54,35 +64,62 @@ def main():
             print("6. Confirmar uso de reserva")
             print("7. Revisar comentarios")
             print("8. Asignar menu")
-            print("9. Salir")
+            print("9. Agregar horario")
+            print("10. Salir")
 
             try:
                 opcion = int(input("Ingrese una opcion: ").strip())
                 if opcion == 1:
                     #Funcion asignar mesa
+                    print("Asignando mesa ...")
+                    x = asignarMesa()
+                    #print("Asignacion exitosa")
                     system('clear')
                 elif opcion == 2:
                     #Funcion liberar mesa
+                    print("Liberando mesa ...")
+                    x = liberarMesa()
+                    #print("Liberacion exitosa")
                     system('clear')
                 elif opcion == 3:
                     #Funcion Agregar sucursal
+                    print("Creando una nueva sucursal")
+                    x = agregarSucursal()
+                    #print("Creacion exitosa")
                     system('clear')
                 elif opcion == 4:
                     #Funcion Eliminar sucursal
+                    print("Eliminando sucursal")
+                    x = eliminarSucursal()
+                    #print("Eliminacion exitosa")
                     system('clear')
                 elif opcion == 5:
                     #Funcion Validar reserva
+                    print("Validando reserva ...")
+                    x = validarReserva()
                     system('clear')
                 elif opcion == 6:
                     #Funcion Confirmar uso de reserva
+                    print("Confirmando reserva ...")
+                    x = confirmarReserva()
                     system('clear')
                 elif opcion == 7:
                     #Funcion Revisar comentarios
+                    print("Buscando comentarios ...")
+                    x = verComentarios()
                     system('clear')
                 elif opcion == 8:
                     #Funcion Asignar menu
+                    print("Creando menu ...")
+                    x = asignarMenu()
                     system('clear')
                 elif opcion == 9:
+                    #Funcion Asignar horario
+                    print("Creando horas")
+                    agregarHorario()
+                    #print("Creacion exitosa")
+                    system('clear')
+                elif opcion == 10: 
                     print("Saliendo")
                     return
                 else:

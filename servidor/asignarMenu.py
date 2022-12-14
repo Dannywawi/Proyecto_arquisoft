@@ -2,15 +2,16 @@ import socket, sys, json
 import os
 from bdd import connectDb
 import hashlib
-import pickle 
+import pickle
 
 
-collection=connectDb()["usuario"]
+collectionMenu=connectDb()["menu"]
+#collectionHorarios=connectDb()["horarios"]
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the port
-server_address = ('localhost', 5001)
+server_address = ('127.0.0.1', 5006)
 print('starting up on {} port {}'.format(*server_address))
 sock.bind(server_address)
 
@@ -29,15 +30,19 @@ while True:
             data = connection.recv(4096).decode()
             data = json.loads(data)
             print('received {!r}',data)
-            x = collection.find_one({"correo" : data["usuario"], "clave" : hashlib.sha256(data["password"].encode('utf-8')).hexdigest()})
-            print('ESTES ES X: ',x)
-            messs = str(x["tipo_cliente"])
-            if x != None:
-                print('sending data back to the client')
-                connection.sendall(messs.encode())
+            
+            post = {"sucursal":data["sucursal"],"fecha":data["fecha"],"menu":data["menu"]}
+            collectionMenu.insert_one(post)     
+
+            if post != None: 
+                #horarios["horarios"][data["horario"]] = int(horarios["horarios"][data["horario"]]) - int(data["mesas"])
+                #collectionHorarios.update_one(filtro, {"$set":{"horarios":horarios["horarios"]}})
+                msg = {"msg":"ok"}
+                connection.sendall(pickle.dumps(msg))
                 break
             else:
-                print('no data from', client_address)
+                msg = {"error":"error"}
+                connection.sendall(pickle.dumps(msg))
                 break
 
     finally:
