@@ -25,6 +25,7 @@ def verComentarios():
             amount_received += len(data)
             menu = json.dumps(json.loads(data), indent = 4)
             print(menu)
+            x=input("Presione tecla para continuar")
             return data  
     finally:
         print('closing socket')

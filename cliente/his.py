@@ -14,11 +14,16 @@ def mostrarhistorial(correo):
     print (" ")
 
     for par in pickle.loads(msg):
-        print("restaurant:",par["id_sucursal"])
-        print("fecha:",par["fecha"])
-        print("hora:",par["horario"])
-        print("numero de personas:",par["n_personas"])
-        print("estado:",par["estado"])
+        print("restaurant: ",par["sucursal"])
+        print("fecha: ",par["fecha"])
+        print("horario: ",par["horario"])
+        print("Mesas: ", par["cantidadMesas"])
+
+        if par["estado"] == True:
+            print("estado: Reservado")
+        
+        else:
+            print("estado: Reserva terminada")
         print("***************************")
         print(" ")
 

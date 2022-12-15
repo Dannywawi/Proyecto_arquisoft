@@ -6,10 +6,9 @@ import hashlib
 import bson
 import numpy as np
 
-collection1=connectDb()["reserva"]
+collection1=connectDb()["reservas"]
 collection2=connectDb()["historial"]
 collection3=connectDb()["usuario"]
-collection4=connectDb()["sucursal"]
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -50,11 +49,6 @@ while True:
                 for res in reservas:
                     if res == data['_id']:
                         datos.append(data)
-            
-            for data in collection4.find({},{}):
-                for parametro in datos:
-                    if parametro["id_sucursal"] == data['_id']:
-                        parametro["id_sucursal"] = data['restaurant']
             
             clientsocket.sendall(pickle.dumps(datos))
             

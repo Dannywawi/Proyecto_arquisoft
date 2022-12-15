@@ -2,23 +2,24 @@ import socket
 import sys, json
 import pickle 
 
-
-def eliminarSucursal():
-    #sucursales = []
+def cancelar(correo):
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Connect the socket to the port where the server is listening
-    server_address = ('127.0.0.1', 5008)
+    server_address = ('127.0.0.1', 6002)
     print('connecting to {} port {}'.format(*server_address))
     sock.connect(server_address)
 
-    #Mesas son para 6 personas max.
-    #Bloque1: 9:00 - 14:00
-    #Bloque2: 14:00 - 20:00
     print("Ingrese el nombre de la sucursal")
     nombre=input()
+    print("Ingrese fecha de la reserva")
+    fecha=input()
+    print("Ingrese horario de la reserva")
+    horario=input()
 
-    post = str({'nombre': nombre}).replace("'",'"').encode()  
+
+
+    post = str({'nombre': nombre,'fecha':fecha,'horario':horario,'correo':correo}).replace("'",'"').encode()  
     try: 
         sock.sendall(post)
         amount_received = 0
@@ -34,6 +35,3 @@ def eliminarSucursal():
     finally:
         print('closing socket')
         sock.close()
-    
-  
-        

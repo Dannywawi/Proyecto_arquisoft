@@ -1,22 +1,26 @@
-from cliente.log import Login
-from cliente.reg import Register
-from cliente.cliAgregarSucursal import agregarSucursal
-from cliente.cliEliminarSucursal import eliminarSucursal
-from cliente.cliAgregarHorario import agregarHorario
-from cliente.cliAsignarMesa import asignarMesa
-from cliente.cliLiberarMesa import liberarMesa
-from cliente.cliAsignarMenu import asignarMenu
-from cliente.cliVerComentarios import verComentarios
-from cliente.cliValidarReserva import validarReserva
-from cliente.cliConfirmarReserva import confirmarReserva
-from cliente.res import reservar
-from cliente.writecom import WriteCom
-from cliente.cliVerMenu import VerMenu
-from cliente.his import mostrarhistorial
+from cliente.reg import Register #port: 5002
+from cliente.log import Login #port: 5001
+
+from cliente.cliAsignarMesa import asignarMesa #port: 5004
+from cliente.cliLiberarMesa import liberarMesa  #port: 5005
+from cliente.cliAgregarSucursal import agregarSucursal  #port: 5007
+from cliente.cliEliminarSucursal import eliminarSucursal #port: 5008
+from cliente.cliValidarReserva import validarReserva #port: 5010
+from cliente.cliConfirmarReserva import confirmarReserva #port: 5011
+from cliente.cliVerComentarios import verComentarios #port: 5009
+from cliente.cliAsignarMenu import asignarMenu #port: 5006
+from cliente.cliAgregarHorario import agregarHorario #port: 5003
+
+from cliente.res import reservar #port: 6000
+from cliente.his import mostrarhistorial #port: 6001
+from cliente.canReserva import cancelar #port: 6002
+from cliente.writecom import WriteCom #port: 25000
+from cliente.cliVerMenu import VerMenu #port: 25009
+
 from os import system
 
 
-isAdmin = 1
+isAdmin = 0
 correo = ""
 
 def main():
@@ -26,7 +30,7 @@ def main():
         #system("cls")
         if isAdmin == 0:
 
-            #MENU PRINCIPAL ->Terminado
+            #MENU PRINCIPAL
 
             print("Que desea hacer?")
             print("1. Crear una nueva cuenta")
@@ -157,6 +161,8 @@ def main():
                     system('clear')
                 elif opcion == 3:
                     #Funcion Cancelar Reservas
+                    print("cancelar reserva")
+                    cancelar(correo)
                     system('clear')
                 elif opcion == 4:
                     #Funcion Escribir comentarios

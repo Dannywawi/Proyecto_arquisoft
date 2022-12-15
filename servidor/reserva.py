@@ -5,10 +5,11 @@ import pickle
 import hashlib
 import bson
 
-collection1=connectDb()["sucursal"]
-collection2=connectDb()["reserva"]
+collection1=connectDb()["sucursales"]
+collection2=connectDb()["reservas"]
 collection3=connectDb()["historial"]
 collection4=connectDb()["usuario"]
+collectionHorarios=connectDb()["horarios"]
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -53,14 +54,21 @@ while True:
                 else:
                     mesas = int(int(reserv["personas"])/6 + 1)
 
+                filtro = {"sucursal":reserv["restaurant"],"fecha":reserv["fecha"]}
+                horarios = collectionHorarios.find_one(filtro,{"horarios":1,"_id":0})
+                result = horarios["horarios"][reserv["horario"]]
 
-                for data in collection1.find({},{}):
-                    if data['restaurant'] == reserv["restaurant"]:
-                        id_rest = data['_id']
-                
+                if int(result) - int(mesas) >= 0 and horarios!=None: 
+                    horarios["horarios"][reserv["horario"]] = int(horarios["horarios"][reserv["horario"]]) - int(mesas)
+                    collectionHorarios.update_one(filtro, {"$set":{"horarios":horarios["horarios"]}})
+                else:
+                    msg = "no quedan mesas disponibles"
+                    clientsocket.sendall(pickle.dumps(msg))
+                    break
+
                 id_reserva = bson.ObjectId()
                     
-                post1={"_id":id_reserva,"id_sucursal": id_rest,"n_personas":reserv["personas"],"n_mesas":mesas,"fecha":reserv["fecha"],"horario":reserv["horario"],"estado":"reservada"}
+                post1={"_id":id_reserva,"usuario":reserv["correo"],"sucursal":reserv["restaurant"],"cantidadMesas":mesas,"fecha":reserv["fecha"],"horario":reserv["horario"],"estado":True}
                 collection2.insert_one(post1)            
                 print('reserva creada: ',post1)
 

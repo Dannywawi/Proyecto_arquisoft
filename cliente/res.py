@@ -16,29 +16,16 @@ def restaurantes():
 
 
             for rest in pickle.loads(msg):
-                print("restaurant:",rest["restaurant"])
+                print("restaurant:",rest["nombre"])
   
             restaurant=input('Indique nombre del restaurant: ')
-
-            for rest in pickle.loads(msg):
-                if rest["restaurant"] == restaurant:
-                    print("restaurant:",rest["restaurant"])
-                    print("fecha:",rest["fecha"])
-
-                    fecha=rest["fecha"]
-
-                    cant = 0
-                    while cant < 5:
-                        print("horario:",rest["Horario"][cant]," numero de mesas:",rest["n_mesas"][cant])
-                        cant = cant + 1
-
         
         else:
             print("ERROR")
 
-        return restaurant, fecha
+        return restaurant
 
-def ejecucion(restaurant, fecha, correo):
+def ejecucion(restaurant,correo):
 
     sock = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
     sock.connect((socket.gethostname(),6000))
@@ -49,7 +36,8 @@ def ejecucion(restaurant, fecha, correo):
 
         if option == 2:
             sock.send(bytes(str(option),"utf-8"))
-
+            
+            fecha=input('indique fecha: ')
             horario=input('indique horario: ')
             personas=input('indique numero de personas: ')
             
@@ -77,9 +65,8 @@ def ejecucion(restaurant, fecha, correo):
 
 def reservar(c):
     
-    r, f= restaurantes()
-    print(r,f)
-    ejecucion(r,f,c)
+    r = restaurantes()
+    ejecucion(r,c)
     print("Reserva realizada")
 
 
