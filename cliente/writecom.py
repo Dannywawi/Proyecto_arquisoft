@@ -1,6 +1,7 @@
 import socket, pickle
 import sys
 import os
+from datetime import date
 
 def WriteCom(type_user, mail):
     
@@ -19,7 +20,8 @@ def WriteCom(type_user, mail):
                 pal = input("Ingrese comentario (maximo 200 caracteres): \n")
                 while (len(pal) < 1) or (len(pal) > 200):
                     pal = input("Ingrese comentario (maximo 200 caracteres): \n")
-                alo = mail+"|||"+pal
+                fecha = str(date.today())
+                alo = fecha+"|||"+mail+"|||"+pal
             elif(selec == 2):
                 return
             else:
