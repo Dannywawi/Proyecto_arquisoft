@@ -24,10 +24,10 @@ class comentariooo():
                 # Receive the data in small chunks and retransmit it
                 while True:
                     data = connection.recv(4096).decode()
-                    commands = data.split('|||',1)
+                    commands = data.split('|||',2)
                     print('received',commands)
 
-                    if(self.insertar_comentario(commands[0],commands[1])):
+                    if(self.insertar_comentario(commands[0],commands[1],commands[2])):
                         connection.sendall("Se ha publicado el comentario de forma existosa".encode())
                     else:
                         connection.sendall("Hubo un error al publicar el comentario".encode())
@@ -35,9 +35,9 @@ class comentariooo():
             finally:
                 connection.close()
 
-    def insertar_comentario(self, correo, mensaje):
+    def insertar_comentario(self, fecha, correo, mensaje):
         try:
-            comentario = {"correo":correo, "comentario":mensaje}
+            comentario = {"correo":correo, "fecha":fecha, "comentario":mensaje}
             collection.insert_one(comentario)
             return True
         except:
